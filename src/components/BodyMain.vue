@@ -6,7 +6,7 @@
 				<el-col :span="6" style="margin-left: 10px;">
 					<!-- 客户端 -->
 					<div class="user-title">
-						<p>客户端/首页</p>
+						<p style="font-size: 14px;">客户端/首页</p>
 					</div>
 					<!-- 用户 -->
 					<div style="margin-bottom: 20px;">
@@ -23,7 +23,7 @@
 									<!-- 信息 -->
 									<el-col :span="16" style="text-align: center;">
 										<div class="user-name">
-											<p>曲丽丽</p>
+											<p style="font-size: 18px;margin-top: 5px;">曲丽丽</p>
 										</div>
 										<div class="user-partment">
 											<p style="font-size: 12px;">xxx部门&nbsp;&nbsp;|&nbsp;&nbsp;xxx职位</p>
@@ -37,30 +37,20 @@
 				<!-- 信息量 -->
 				<el-col :span="10" :offset="7">
 					<el-row style="text-align: center;margin-top: 70px;">
-						<el-col :span="5" :offset="4">
-							<div class="right-box">
-								<p>已驳回</p>
-								<span>8</span>
-							</div>
-						</el-col>
-						<el-col :span="5">
-							<div class="right-box">
-								<p>已驳回</p>
-								<p>8</p>
-							</div>
-						</el-col>
-						<el-col :span="5">
-							<div class="right-box">
-								<p>已驳回</p>
-								<p>8</p>
-							</div>
-						</el-col>
-						<el-col :span="5">
-							<div class="right-box1">
-								<p>已驳回</p>
-								<p>8</p>
-							</div>
-						</el-col>
+						<div v-for="(item,index) in list4" :key="index">
+							<el-col :span="6">
+								<div :class="item.type==1?'right-box':(item.type ==2?'right-box2':'right-box2')" v-if="index < 3">
+									<p style="margin-top: 5px;">{{item.type==1?"已驳回":(item.type==2?"审评中":(item.type == 3?"复核中":"已通过"))}}</p>
+									<span>{{item.number}}</span>
+								</div>
+							</el-col>
+							<el-col :span="6">
+								<div class="right-box3" v-if="index==3">
+									<p style="margin-top: 5px;">{{item.type==1?"已驳回":(item.type==2?"审评中":(item.type == 3?"复核中":"已通过"))}}</p>
+									<span>{{item.number}}</span>
+								</div>
+							</el-col>
+						</div>
 					</el-row>
 				</el-col>
 			</el-row>
@@ -76,24 +66,26 @@
 							<div slot="header" class="clearfix">
 								<span>最新动态</span>
 							</div>
-							<div style="margin-bottom: 20px;">
-								<div v-for="(item,index) in list1" :key="index" style="margin-top: 10px;margin-left: 10px;">
+							<div style="margin-bottom: 10px;">
+								<div v-for="(item,index) in list1" :key="index" style="margin-left: 10px;">
 									<el-row>
 										<el-col :span="20">
 											<el-row>
 												<el-col :span="3" style="margin-top: 25px;">
 													<img src="../assets/user-head.png" />
 												</el-col>
-												<el-col :span="12">
+												<el-col :span="12" style="color: gray;">
 													<p>{{item.name}}</p>
 													<p>{{"复核："+item.checker}}</p>
 													<p>{{"已等待："+item.usedtime}}</p>
 												</el-col>
 											</el-row>
 										</el-col>
-										<el-col :span="4" style="text-align: right;">
-											<p>{{item.state==1?"等待回复":(item.state==2?"等待评审":(item.state==3?"已驳回":"等待回复"))}}</p>
-											<div>
+										<el-col :span="4" style="text-align: right;margin-top: 5px;">
+											<div :class="item.state==1?'blue-color':(item.state==2?'yellow-color':(item.state==3?'red-color':'blue-color'))">
+												<p style="font-size: 14px;">{{item.state==1?"等待复核":(item.state==2?"等待评审":(item.state==3?"已驳回":"等待复核"))}}</p>
+											</div>
+											<div style="margin-top: 35px;">
 												<el-button type="info" plain>催办</el-button>
 											</div>
 										</el-col>
@@ -104,7 +96,7 @@
 						</el-card>
 					</div>
 					<!-- 我的图纸 -->
-					<div style="margin-top: 15px;">
+					<div style="margin-top: 13px;">
 						<el-card class="box-card">
 							<div slot="header" class="clearfix">
 								<span>我的图纸</span>
@@ -113,7 +105,7 @@
 							<div>
 								<div v-for="(item,index) in list2" :key="index">
 									<div style="margin-left: 20px;width: 30%;float: left;">
-										<p><span><img src="../assets/ss.png" style="width: 10%;"></span>{{item.name}}</p>
+										<p><img src="../assets/ss.png" style="width: 10%;padding-right: 10px;" align="top">{{item.name}}</p>
 										<p>{{item.message}}</p>
 										<div>
 											<el-row>
@@ -128,10 +120,13 @@
 									</div>
 								</div>
 							</div>
+							<el-divider class="cutline"></el-divider>
+							<el-divider direction="vertical" class="verticalline1"></el-divider>
+							<el-divider direction="vertical" class="verticalline2"></el-divider>
 						</el-card>
 					</div>
 					<!-- 最新学习资料 -->
-					<div style="margin: 15px 0 60px 0;">
+					<div style="margin: 13px 0 60px 0;">
 						<el-card class="box-card">
 							<div slot="header" class="clearfix">
 								<span>最新学习资料</span>
@@ -140,11 +135,14 @@
 							<div>
 								<div v-for="(item,index) in list3" :key="index">
 									<div style="margin-left: 20px;width: 30%;float: left;">
-										<p><span><img src="../assets/ss.png" style="width: 10%;"></span>{{item.name}}</p>
+										<p><img src="../assets/ss.png" style="width: 10%;padding-right: 10px;" align="top">{{item.name}}</p>
 										<p>{{item.message}}</p>
 									</div>
 								</div>
 							</div>
+							<el-divider class="cutline2"></el-divider>
+							<el-divider direction="vertical" class="verticalline3"></el-divider>
+							<el-divider direction="vertical" class="verticalline4"></el-divider>
 						</el-card>
 					</div>
 				</el-col>
@@ -159,8 +157,8 @@
 							<el-row>
 								<div class="homework-tags">
 									<div v-for="(item,index) in dynamicTags" :key="index">
-										<el-col :span="4" style="margin: 5px 15px 10px 5px;">
-											<el-tag type="info">{{item}}</el-tag>
+										<el-col :span="4" style="margin: 5px 15px 10px 15px;">
+											<el-link type="primary">{{item}}</el-link>
 										</el-col>
 									</div>
 									<el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="small" @keyup.enter.native="handleInputConfirm" @blur="handleInputConfirm">
@@ -171,7 +169,7 @@
 						</el-card>
 					</div>
 					<!-- 日期 -->
-					<div style="margin-top: 15px;">
+					<div style="margin-top: 13px;">
 						<el-card class="box-card">
 							<div slot="header" class="clearfix">
 								<span>2019年7月24日</span>
@@ -199,11 +197,11 @@
 								</el-row>
 							</div>
 							<!-- 统计图 -->
-							<div style="width: 350px;height: 282px;" ref="chart2"></div>
+							<div style="width: 350px;height: 305px;" ref="chart2"></div>
 						</el-card>
 					</div>
 					<!-- 审批统计 -->
-					<div style="margin-top: 15px;">
+					<div style="margin-top: 13px;">
 						<el-card class="box-card">
 							<div slot="header" class="clearfix">
 								<span>审批统计</span>
@@ -330,6 +328,23 @@
 				dynamicTags: ['标签一', '标签二', '标签三', '标签四', '标签五'],
 				inputVisible: false,
 				inputValue: '',
+				list4: [{
+						type: 1,
+						number: 8
+					},
+					{
+						type: 2,
+						number: 28
+					},
+					{
+						type: 3,
+						number: 38
+					},
+					{
+						type: 4,
+						number: 448
+					}
+				]
 			}
 		},
 		mounted() {
@@ -362,7 +377,6 @@
 								type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
 							}
 						},
-
 						grid: {
 							left: '3%',
 							right: '4%',
@@ -441,11 +455,15 @@
 							trigger: 'item',
 							formatter: '{a} <br/>{b}: {c} ({d}%)'
 						},
+						grid: {
+							left: 200,
+							height: '500px'
+						},
 						legend: {
 							orient: 'vertical',
 							right: 0,
-							top: 110,
-							data: ['计划作业', '抢修作业', '零时作业','总额']
+							top: 100,
+							data: ['计划作业', '抢修作业', '零时作业', '总额']
 						},
 						series: [{
 								name: '访问来源',
@@ -464,8 +482,8 @@
 									}
 								},
 								data: [{
-										value: 20,
-										name: '直接访问'
+										value: 40,
+										name: '计划作业'
 									},
 									{
 										value: 100,
@@ -490,11 +508,11 @@
 									}
 								},
 								data: [{
-										value: 40,
-										name: '直接访问'
+										value: 50,
+										name: '抢修作业'
 									},
 									{
-										value: 310,
+										value: 100,
 										name: '总额'
 									},
 								]
@@ -516,12 +534,12 @@
 									}
 								},
 								data: [{
-										value: 335,
-										name: '直接访问'
+										value: 10,
+										name: '零时作业'
 									},
 									{
-										value: 310,
-										name: '邮件营销'
+										value: 100,
+										name: '总额'
 									},
 								]
 							}
@@ -586,9 +604,60 @@
 
 	.right-box {
 		border-right: 1px solid #ECECEC;
+		color: red;
 	}
-
+	.right-box2 {
+		border-right: 1px solid #ECECEC;
+		color: gray;
+	}
+	.right-box3 {
+		border-right: 1px solid #ECECEC;
+		color: lightgreen;
+	}
+	.blue-color{
+		color: #409EFF;
+	}
+	.red-color{
+		color: red;
+	}
+	.yellow-color{
+		color: yellow;
+	}
 	.el-divider--horizontal {
 		margin: 12px 0;
+	}
+
+	/* 分割线 我的图纸 */
+	.cutline {
+		margin-top: 170px;
+	}
+
+	.verticalline1 {
+		height: 320px;
+		margin-left: -518px;
+		margin-top: -170px;
+	}
+
+	.verticalline2 {
+		height: 320px;
+		margin-left: 255px;
+		margin-top: -170px;
+	}
+
+	/* 分割线 最新学习资料 */
+	.cutline2 {
+		margin-top: 120px;
+	}
+
+	.verticalline3 {
+		height: 220px;
+		margin-left: -518px;
+		margin-top: -125px;
+	}
+
+	.verticalline4 {
+		height: 220px;
+		margin-left: 255px;
+		margin-top: -125px;
 	}
 </style>
