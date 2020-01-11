@@ -1,13 +1,8 @@
 <template>
-	<div style="height: 100%;">
-		<!-- 按钮 -->
-		<!-- <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
-			<el-radio-button :label="false">展开</el-radio-button>
-			<el-radio-button :label="true">收起</el-radio-button>
-		</el-radio-group>	 -->
-		<el-menu default-active="1-4-1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
+	<div>
+		<el-menu style="height: 100%;" default-active="1-4-1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
 			<!-- 作业审批管理系统 -->
-			<div class="app-side-logo">
+			<div class="app-side-logo" >
 				<p>作业审批管理系统</p>
 			</div>
 			<el-menu-item index="1">
@@ -39,9 +34,10 @@
 
 <script>
 	export default {
+		props:['isCollapse'],
 		data() {
 			return {
-				isCollapse: false
+				
 			};
 		},
 		methods: {
@@ -50,7 +46,7 @@
 			},
 			handleClose(key, keyPath) {
 				window.console.log(key, keyPath);
-			}
+			},
 		},
 	}
 </script>
@@ -67,5 +63,10 @@
 		font-size: 14px;
 		line-height: 3;
 		background-color: #545c64;
+		overflow: hidden;
+		text-overflow:ellipsis;
+		white-space: nowrap;
 	}
+	
+	
 </style>

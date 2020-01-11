@@ -2,13 +2,11 @@
 	<div>
 		<el-container>
 			<!-- 左侧导航栏 开始 -->
-			<el-aside width="200px" style="background: #545c64;">
-				<LeftAside></LeftAside>
-			</el-aside>
+			<LeftAside :isCollapse="isCollapse"></LeftAside>
 			<el-container>
 				<!-- 右侧顶部栏 开始 -->
 				<el-header width="100%">
-					<TopHead></TopHead>
+					<TopHead ref="mytop" v-model="isCollapse"></TopHead>
 				</el-header>
 				<!-- 右侧内容部分 开始 -->
 				<el-main width="100%" style="background: #ECECEC;padding: 0;">
@@ -25,34 +23,43 @@
 	import BodyMain from '../components/BodyMain.vue'
 	export default {
 		data() {
-			return{
-				
+			return {
+				isCollapse: false
 			}
 		},
-		components:{
+		created() {
+			this.getCollapses
+		},
+		components: {
 			LeftAside,
 			TopHead,
 			BodyMain
+		},
+		methods:{
+			getCollapses() {
+				this.isCollapse = this.$refs.mytop.isCollapse
+			}
 		}
 	}
 </script>
 
 <style lang="css" scoped>
 	/* 左侧导航栏 开始 */
-	.left-side {
-		
-	}
+	.left-side {}
+
 	/* 左侧导航栏 结束 */
 
 	/* 右侧顶部栏 开始 */
 	.top-head {
 		line-height: 3;
 	}
+
 	/* 右侧顶部栏 结束 */
 
 	/* 右侧内容部分 开始 */
 	.main-body {
 		background-color: #CCCCCC;
 	}
+
 	/* 右侧内容部分 结束 */
 </style>

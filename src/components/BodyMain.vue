@@ -62,7 +62,7 @@
 				<el-col :span="16" style="padding: 15px 0 0 20px;">
 					<!-- 最新动态 -->
 					<div>
-						<el-card class="box-card">
+						<el-card class="box-card" style="padding-bottom: 52px;">
 							<div slot="header" class="clearfix">
 								<span>最新动态</span>
 							</div>
@@ -102,27 +102,28 @@
 								<span>我的图纸</span>
 								<el-button style="float: right; padding: 3px 0" type="text">全部动态</el-button>
 							</div>
-							<div>
-								<div v-for="(item,index) in list2" :key="index">
-									<div style="margin-left: 20px;width: 30%;float: left;">
-										<p><img src="../assets/ss.png" style="width: 10%;padding-right: 10px;" align="top">{{item.name}}</p>
-										<p>{{item.message}}</p>
-										<div>
-											<el-row>
-												<el-col :span="15">
-													<p>{{item.partment}}</p>
-												</el-col>
-												<el-col :span="8" style="text-align: right;">
-													<p>{{item.uptime+"小时前"}}</p>
-												</el-col>
-											</el-row>
+							<table>
+								<!-- 循环tr -->
+								<tr :class="index==list2.length-1?'lastrow':'lrow'" v-for="(item,index) in list2" :key="index">
+									<!-- 循环td -->
+									<td width="270px" :class="(index2+1)%3==0?'lastCol':'lCol'" v-for="(item2,index2) in item.tabledate" :key="index2">
+										<div style="margin-left: 20px;width: 80%;">
+											<p><img src="../assets/ss.png" style="width: 10%;padding-right: 10px;" align="top">{{item2.name}}</p>
+											<p>{{item2.message}}</p>
+											<div>
+												<el-row>
+													<el-col :span="15">
+														<p>{{item2.partment}}</p>
+													</el-col>
+													<el-col :span="8" style="text-align: right;">
+														<p>{{item2.uptime+"小时前"}}</p>
+													</el-col>
+												</el-row>
+											</div>
 										</div>
-									</div>
-								</div>
-							</div>
-							<el-divider class="cutline"></el-divider>
-							<el-divider direction="vertical" class="verticalline1"></el-divider>
-							<el-divider direction="vertical" class="verticalline2"></el-divider>
+									</td>
+								</tr>
+							</table>
 						</el-card>
 					</div>
 					<!-- 最新学习资料 -->
@@ -132,17 +133,18 @@
 								<span>最新学习资料</span>
 								<el-button style="float: right; padding: 3px 0" type="text">全部动态</el-button>
 							</div>
-							<div>
-								<div v-for="(item,index) in list3" :key="index">
-									<div style="margin-left: 20px;width: 30%;float: left;">
-										<p><img src="../assets/ss.png" style="width: 10%;padding-right: 10px;" align="top">{{item.name}}</p>
-										<p>{{item.message}}</p>
-									</div>
-								</div>
-							</div>
-							<el-divider class="cutline2"></el-divider>
-							<el-divider direction="vertical" class="verticalline3"></el-divider>
-							<el-divider direction="vertical" class="verticalline4"></el-divider>
+							<table>
+								<!-- 循环tr -->
+								<tr :class="index==list2.length-1?'lastrow':'lrow'" v-for="(item,index) in list3" :key="index">
+									<!-- 循环td -->
+									<td width="270px" :class="(index2+1)%3==0?'lastCol':'lCol'" v-for="(item2,index2) in item.tabledate" :key="index2">
+										<div style="margin-left: 20px;width: 80%;">
+											<p><img src="../assets/ss.png" style="width: 10%;padding-right: 10px;" align="top">{{item2.name}}</p>
+											<p>{{item2.message}}</p>
+										</div>
+									</td>
+								</tr>
+							</table>
 						</el-card>
 					</div>
 				</el-col>
@@ -181,15 +183,15 @@
 							</div>
 							<div class="keeper-name" style="background: #E4E4E4;">
 								<el-row>
-									<el-col :span="6" style="text-align: center;">
-										<p style="font-size: 28px;margin-left: 10px;color: #FFFFFF;">值班人员</p>
+									<el-col :span="5" style="text-align: center;">
+										<p style="font-size: 26px;margin-left: 10px;color: #FFFFFF;">值班人员</p>
 									</el-col>
 									<el-col :span="2" style="text-align: center;margin-left: 10px;">
-										<div style="border-left: 2px solid #FFFFFF;height: 95px;margin-top:18px;"></div>
+										<div style="border-left: 2px solid #FFFFFF;height: 90px;margin-top:18px;"></div>
 									</el-col>
 									<el-col :span="10">
-										<p style="color: #FFFFFF;font-size: 23px;">李艳华</p>
-										<p style="color: #FFFFFF;font-size: 23px;">1388888888</p>
+										<p style="color: #FFFFFF;font-size: 21px;">李艳华</p>
+										<p style="color: #FFFFFF;font-size: 21px;">1388888888</p>
 									</el-col>
 									<el-col :span="4">
 										<img src="../assets/phone.png" width="80%" style="margin: 40px 0 0 15px" />
@@ -197,7 +199,7 @@
 								</el-row>
 							</div>
 							<!-- 统计图 -->
-							<div style="width: 350px;height: 305px;" ref="chart2"></div>
+							<div style="width: 350px;height: 255px;" ref="chart2"></div>
 						</el-card>
 					</div>
 					<!-- 审批统计 -->
@@ -264,66 +266,80 @@
 					}
 				],
 				list2: [{
-						name: "12月盘点报告",
-						message: "这是一条信息这是一条信息这是一条信息这是一条信息",
-						partment: "行政部",
-						uptime: "5"
+						tabledate: [{
+								name: "11月盘点报告",
+								message: "这是一条信息这是一条信息这是一条信息这是一条信息",
+								partment: "行政部",
+								uptime: "5"
+							},
+							{
+								name: "10月盘点报告",
+								message: "这是一条信息这是一条信息这是一条信息这是一条信息",
+								partment: "仓库",
+								uptime: "5"
+							},
+							{
+								name: "9月盘点报告",
+								message: "这是一条信息这是一条信息这是一条信息这是一条信息",
+								partment: "蜂鸟项目",
+								uptime: "5"
+							},
+						]
 					},
 					{
-						name: "12月盘点报告",
-						message: "这是一条信息这是一条信息这是一条信息这是一条信息",
-						partment: "仓库",
-						uptime: "5"
-					},
-					{
-						name: "12月盘点报告",
-						message: "这是一条信息这是一条信息这是一条信息这是一条信息",
-						partment: "蜂鸟项目",
-						uptime: "5"
-					},
-					{
-						name: "12月盘点报告",
-						message: "这是一条信息这是一条信息这是一条信息这是一条信息",
-						partment: "凤蝶金英小分队",
-						uptime: "5"
-					},
-					{
-						name: "12月盘点报告",
-						message: "这是一条信息这是一条信息这是一条信息这是一条信息",
-						partment: "蜂鸟项目",
-						uptime: "5"
-					},
-					{
-						name: "12月盘点报告",
-						message: "这是一条信息这是一条信息这是一条信息这是一条信息",
-						partment: "蜂鸟项目",
-						uptime: "5"
+						tabledate: [{
+								name: "11月盘点报告",
+								message: "这是一条信息这是一条信息这是一条信息这是一条信息",
+								partment: "行政部",
+								uptime: "5"
+							},
+							{
+								name: "10月盘点报告",
+								message: "这是一条信息这是一条信息这是一条信息这是一条信息",
+								partment: "仓库",
+								uptime: "5"
+							},
+							{
+								name: "9月盘点报告",
+								message: "这是一条信息这是一条信息这是一条信息这是一条信息",
+								partment: "蜂鸟项目",
+								uptime: "5"
+							},
+						]
 					}
 				],
 				list3: [{
-						name: "12月盘点报告",
-						message: "这是一条信息这是一条信息这是一条信息这是一条信息",
+						tabledate: [{
+								name: "12月盘点报告",
+								message: "这是一条信息这是一条信息这是一条信息这是一条信息",
+							},
+							{
+								name: "12月盘点报告",
+								message: "这是一条信息这是一条信息这是一条信息这是一条信息",
+							},
+							{
+								name: "12月盘点报告",
+								message: "这是一条信息这是一条信息这是一条信息这是一条信息",
+							}
+						]
+
 					},
 					{
-						name: "12月盘点报告",
-						message: "这是一条信息这是一条信息这是一条信息这是一条信息",
+						tabledate: [{
+								name: "12月盘点报告",
+								message: "这是一条信息这是一条信息这是一条信息这是一条信息",
+							},
+							{
+								name: "12月盘点报告",
+								message: "这是一条信息这是一条信息这是一条信息这是一条信息",
+							},
+							{
+								name: "12月盘点报告",
+								message: "这是一条信息这是一条信息这是一条信息这是一条信息",
+							}
+						]
+
 					},
-					{
-						name: "12月盘点报告",
-						message: "这是一条信息这是一条信息这是一条信息这是一条信息",
-					},
-					{
-						name: "12月盘点报告",
-						message: "这是一条信息这是一条信息这是一条信息这是一条信息",
-					},
-					{
-						name: "12月盘点报告",
-						message: "这是一条信息这是一条信息这是一条信息这是一条信息",
-					},
-					{
-						name: "12月盘点报告",
-						message: "这是一条信息这是一条信息这是一条信息这是一条信息",
-					}
 				],
 				dynamicTags: ['标签一', '标签二', '标签三', '标签四', '标签五'],
 				inputVisible: false,
@@ -395,7 +411,7 @@
 							]
 						},
 						series: [{
-								name: '直接访问',
+								name: '计划',
 								type: 'bar',
 								stack: '总量',
 								label: {
@@ -405,7 +421,7 @@
 								data: [320, 302, 301, 334, 390, 330, 320, 320, 302, 301, 334, 390, 330]
 							},
 							{
-								name: '邮件营销',
+								name: '变更',
 								type: 'bar',
 								stack: '总量',
 								label: {
@@ -415,7 +431,7 @@
 								data: [120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90]
 							},
 							{
-								name: '联盟广告',
+								name: '取消',
 								type: 'bar',
 								stack: '总量',
 								label: {
@@ -425,7 +441,7 @@
 								data: [220, 182, 191, 234, 290, 330, 310, 220, 182, 191, 234, 290]
 							},
 							{
-								name: '视频广告',
+								name: '抢修',
 								type: 'bar',
 								stack: '总量',
 								label: {
@@ -435,7 +451,17 @@
 								data: [150, 212, 201, 154, 190, 330, 410, 150, 212, 201, 154, 190]
 							},
 							{
-								name: '搜索引擎',
+								name: '临时',
+								type: 'bar',
+								stack: '总量',
+								label: {
+									show: true,
+									position: 'insideRight'
+								},
+								data: [820, 832, 901, 934, 1290, 1330, 1320, 820, 832, 901, 934, 1290]
+							},
+							{
+								name: '完成',
 								type: 'bar',
 								stack: '总量',
 								label: {
@@ -446,8 +472,8 @@
 							}
 						],
 						legend: {
-							data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎'],
-							bottom: '5'
+							data: ['计划', '变更', '取消', '抢修', '临时','完成'],
+							bottom: '6'
 						},
 					}),
 					myChart2.setOption({
@@ -606,58 +632,51 @@
 		border-right: 1px solid #ECECEC;
 		color: red;
 	}
+
 	.right-box2 {
 		border-right: 1px solid #ECECEC;
 		color: gray;
 	}
+
 	.right-box3 {
 		border-right: 1px solid #ECECEC;
 		color: lightgreen;
 	}
-	.blue-color{
+
+	.blue-color {
 		color: #409EFF;
 	}
-	.red-color{
+
+	.red-color {
 		color: red;
 	}
-	.yellow-color{
+
+	.yellow-color {
 		color: yellow;
 	}
+
 	.el-divider--horizontal {
 		margin: 12px 0;
 	}
 
-	/* 分割线 我的图纸 */
-	.cutline {
-		margin-top: 170px;
+	table {
+		border-collapse: collapse;
+		border: 0px solid #999;
+		font-size: 12px;
 	}
 
-	.verticalline1 {
-		height: 320px;
-		margin-left: -518px;
-		margin-top: -170px;
+	.lrow {
+		border-top: 0;
+		border-bottom: 1px solid #999;
+		border-left: 0;
+		padding: 20px 10px;
 	}
 
-	.verticalline2 {
-		height: 320px;
-		margin-left: 255px;
-		margin-top: -170px;
+	.lCol {
+		border-right: 1px solid #999;
 	}
 
-	/* 分割线 最新学习资料 */
-	.cutline2 {
-		margin-top: 120px;
-	}
-
-	.verticalline3 {
-		height: 220px;
-		margin-left: -518px;
-		margin-top: -125px;
-	}
-
-	.verticalline4 {
-		height: 220px;
-		margin-left: 255px;
-		margin-top: -125px;
+	.lastCol {
+		border-right: 0;
 	}
 </style>
